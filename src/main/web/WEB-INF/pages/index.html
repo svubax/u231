@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/add}" th:object="${newUser}">
+    <label for="nameAdd">Enter Name: </label>
+    <input id="nameAdd" th:field="*{login}" type="text"/>
+    <br/>
+    <label for="emailAdd">Enter E-mail: </label>
+    <input id="emailAdd" th:field="*{email}" type="email"/>
+    <br/>
+    <label for="ageAdd">Enter Age: </label>
+    <input id="ageAdd" th:field="*{age}" type="number"/>
+    <br/>
+    <input type="submit" value="Add User!"/>
+</form>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Age</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getLogin()}">Name</td>
+        <td th:text="${user.getEmail()}">E-mail</td>
+        <td th:text="${user.getAge()}">Age</td>
+        <td><a th:href="@{update/{id}(id=${user.getId()})}">Edit</a></td>
+        <td><a th:href="@{delete/{id}(id=${user.getId()})}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

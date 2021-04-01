@@ -3,17 +3,16 @@ package ru.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.web.model.User;
 import ru.web.service.UserService;
 
 @Controller
 public class UserList {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    public UserList(UserService userService) {
+        this.userService = userService;
+    }
     @GetMapping("/")
     public String index(@ModelAttribute("newUser") User newUser, Model model) {
         model.addAttribute("users", userService.getUsers());
@@ -24,19 +23,19 @@ public class UserList {
         userService.addUser(user);
         return "redirect:/";
     }
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int id){
-        userService.deleteUser(id);
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model){
+        model.addAttribute("user", userService.getUser(id));
+        return "/update";
+    }
+    @PatchMapping("/update/{id}")
+    public String update(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+        userService.updateUser(user);
         return "redirect:/";
     }
-    @GetMapping("/update/{id}")
-    public String add(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "update";
-    }
-    @PostMapping("/update")
-    public String edit(User user){
-        userService.updateUser(user);
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable("id") int id){
+        userService.deleteUser(id);
         return "redirect:/";
     }
 }

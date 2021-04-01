@@ -27,7 +27,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -35,7 +34,6 @@ public class User {
     public byte getAge() {
         return age;
     }
-
     public void setAge(byte age) {
         this.age = age;
     }
@@ -43,7 +41,6 @@ public class User {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -51,7 +48,6 @@ public class User {
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }

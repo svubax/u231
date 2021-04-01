@@ -19,8 +19,10 @@ import javax.sql.DataSource;
 @PropertySource("classpath:db.properties")
 @ComponentScan(value = "ru.web")
 public class JpaConfig {
-    @Autowired
-    private Environment env;
+    private final Environment env;
+    public JpaConfig(Environment env) {
+        this.env = env;
+    }
     @Bean
     public DataSource getDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

@@ -3,9 +3,12 @@ package ru.web.service;
 import org.springframework.stereotype.Service;
 import ru.web.dao.UserDao;
 import ru.web.model.User;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
     private final UserDao userDao;
     public UserServiceImp(UserDao userDao) {
